@@ -1,4 +1,4 @@
-package FontColor
+package fontColor
 
 import "fmt"
 

@@ -1,4 +1,4 @@
-package Flags
+package flags
 
 type Flags struct {
 	/** 通用 */
