@@ -27,13 +27,16 @@ type Flags struct {
 	/** 文件操作 */
 	FileName  string
 	Url       string
-	UserAgent string
 
+	/** HTTP请求使用 */
+	UserAgent string
+	Token     string
+
+	/** 延时使用 */
+	SleepTime  int64
 	SleepTime1 int64
 	SleepTime2 int64
+
 	/** 文本 */
 	Text string
-
-	/** Auth Token */
-	Token string
 }
