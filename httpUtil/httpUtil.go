@@ -1,4 +1,4 @@
-package httpUtil
+package HttpUtil
 
 import (
 	"compress/gzip"

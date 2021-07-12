@@ -1,4 +1,4 @@
-package timeUtil
+package TimeUtil
 
 import (
 	"time"

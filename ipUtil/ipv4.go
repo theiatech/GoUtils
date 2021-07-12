@@ -1,4 +1,4 @@
-package ipUtil
+package IpUtil
 
 import (
 	"bytes"
