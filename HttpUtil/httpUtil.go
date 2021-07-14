@@ -1,6 +1,7 @@
 package HttpUtil
 
 import (
+	"bytes"
 	"compress/gzip"
 	"io"
 	"io/ioutil"
@@ -9,11 +10,61 @@ import (
 	"time"
 )
 
+type HttpRequestParams struct {
+	Method string
+	Url string `json:"url"`
+	Body []byte
+	Headers     map[string]string
+	BasicAuth  struct {
+		Username string
+		Password string
+	}
+	Timeout time.Duration
+}
+
 type HttpResponse struct {
 	Header     map[string][]string
 	StatusCode int
 	Body       []byte
 	Error      error
+}
+
+func Requests(httpRequestParams HttpRequestParams) HttpResponse {
+	if 0 == httpRequestParams.Timeout {
+		httpRequestParams.Timeout = 10 * time.Second
+	}
+	client := &http.Client{Timeout: httpRequestParams.Timeout}
+	if "" == httpRequestParams.Method {
+		httpRequestParams.Method = http.MethodGet
+	}
+	req, err := http.NewRequest(httpRequestParams.Method, httpRequestParams.Url, bytes.NewReader(httpRequestParams.Body))
+	if err != nil {
+		return HttpResponse{nil, 0, nil, err}
+	}
+	if 0 < len(httpRequestParams.BasicAuth.Username) {
+		req.SetBasicAuth(httpRequestParams.BasicAuth.Username,httpRequestParams.BasicAuth.Password)
+	}
+	req.Header.Set("User-Agent", "curl/7.64.1")
+	for k, v := range httpRequestParams.Headers {
+		req.Header.Set(k, v)
+	}
+	resp, err := client.Do(req)
+	if err != nil {
+		return HttpResponse{nil, 0, nil, err}
+	}
+	var reader io.ReadCloser
+	if resp.Header.Get("Content-Encoding") == "gzip" {
+		reader, err = gzip.NewReader(resp.Body)
+		if err != nil {
+			return HttpResponse{resp.Header, resp.StatusCode, nil, err}
+		}
+	} else {
+		reader = resp.Body
+	}
+	body, err := ioutil.ReadAll(reader)
+	resp.Body.Close()
+	reader.Close()
+	return HttpResponse{resp.Header, resp.StatusCode, body, err}
 }
 
 func Get(u string, headers map[string]string) HttpResponse {
