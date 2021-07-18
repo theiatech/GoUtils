@@ -39,4 +39,7 @@ type Flags struct {
 
 	/** 文本 */
 	Text string
+
+	/** 其他 */
+	Level int
 }
