@@ -15,3 +15,4 @@ func LogDebug(str string)  {
 	_,file,line,_ := runtime.Caller(1)
 	Log(fmt.Sprintf("%s:%d %s",file,line,str))
 }
+
