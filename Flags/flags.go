@@ -27,6 +27,7 @@ type Flags struct {
 	/** 文件操作 */
 	FileName  string
 	Url       string
+	Extension string
 
 	/** HTTP请求使用 */
 	UserAgent string
