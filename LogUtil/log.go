@@ -8,11 +8,15 @@ import (
 )
 
 func Log(str string)  {
-	fmt.Printf("\r\u001B[K%s %s",FontColor.Green(TimeUtil.Now()),str)
+	fmt.Printf("\r\u001B[K%s",str)
+}
+
+func LogInfo(str string) {
+	Log(fmt.Sprintf("%s %s\n",FontColor.Green(TimeUtil.Now()),str))
 }
 
 func LogDebug(str string)  {
 	_,file,line,_ := runtime.Caller(1)
-	Log(fmt.Sprintf("%s:%d %s",file,line,str))
+	Log(fmt.Sprintf("%s %s:%d %s\n",FontColor.Green(TimeUtil.Now()),file,line,str))
 }
 
