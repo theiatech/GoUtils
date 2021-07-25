@@ -16,7 +16,7 @@ func Logf(format string, a ...interface{}) {
 }
 
 func LogInfo(str string) {
-	Log(fmt.Sprintf("%s %s\n",FontColor.Green(TimeUtil.Now()),str))
+	Logf("%s %s\n",FontColor.Green(TimeUtil.Now()),str)
 }
 func LogInfof(format string, a ...interface{}) {
 	LogInfo(fmt.Sprintf(format,a...))
@@ -24,7 +24,7 @@ func LogInfof(format string, a ...interface{}) {
 
 func LogDebug(str string)  {
 	_,file,line,_ := runtime.Caller(1)
-	Log(fmt.Sprintf("%s %s:%d %s\n",FontColor.Green(TimeUtil.Now()),file,line,str))
+	Logf("%s %s:%d %s\n",FontColor.Green(TimeUtil.Now()),file,line,str)
 }
 func LogDebugf(format string, a ...interface{}) {
 	LogDebug(fmt.Sprintf(format,a...))

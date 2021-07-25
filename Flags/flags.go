@@ -26,10 +26,10 @@ type Flags struct {
 
 	/** 文件操作 */
 	FileName  string
-	Url       string
-	Extension string
+	Extension string /** 扩展名 */
 
 	/** HTTP请求使用 */
+	Url       string
 	UserAgent string
 	Token     string
 
