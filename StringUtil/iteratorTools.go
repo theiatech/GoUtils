@@ -24,13 +24,13 @@ type Iterator struct {
  * @Param startIdx  0 ~ (stopIdx - 1)
  * @Param stopIdx   startIdx +1 ~ math.Pow(float64(len(IteratorTools)), float64(length))
  **/
-func (c IteratorTools) Product(length ,startIdx ,stopIdx int) *Iterator {
+func (c IteratorTools) Product(length int,startIdx ,stopIdx float64) *Iterator {
 	end := math.Pow(float64(len(c)), float64(length))
-	if 0 < stopIdx && end >= float64(stopIdx) {
-		end = float64(stopIdx)
+	if 0 < stopIdx && end >= stopIdx {
+		end = stopIdx
 	}
 
-	begin := float64(startIdx)
+	begin := startIdx
 	if 0 > begin || end <= begin {
 		begin = 0
 	}
