@@ -45,4 +45,3 @@ func FindAllStr(src, expr string) []string {
 func IsEmail(src string) bool {
 	return regexp.MustCompile(`^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$`).MatchString(src)
 }
-
